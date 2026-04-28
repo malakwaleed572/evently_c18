@@ -1,5 +1,8 @@
 import 'package:evently/common/gen/assets.gen.dart';
 import 'package:evently/screens/auth/login_screen.dart';
+import 'package:evently/screens/auth/register_screen.dart';
+import 'package:evently/screens/home/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -34,12 +37,20 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Spacer(),
               AnimatedContainer(
-                duration: Duration(seconds: 5,),
+                duration: Duration(seconds: 5),
                 curve: Curves.fastOutSlowIn,
                 width: animate ? 300 : 0,
                 onEnd: () {
-                  Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-                },
+                if(FirebaseAuth.instance.currentUser?.uid!=null){
+                   Navigator.pushReplacementNamed(
+                    context,
+                    HomeScreen.routeName,
+                  );
+                }else{  Navigator.pushReplacementNamed(
+                    context,
+                    LoginScreen.routeName,
+                  );
+                }},
 
                 child: Assets.images.appLogo.image(),
               ),
