@@ -17,17 +17,67 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/birthday_icon_unselected.svg
+  SvgGenImage get birthdayIconUnselected =>
+      const SvgGenImage('assets/icons/birthday_icon_unselected.svg');
+
+  /// File path: assets/icons/book_icon_unselected.svg
+  SvgGenImage get bookIconUnselected =>
+      const SvgGenImage('assets/icons/book_icon_unselected.svg');
+
+  /// File path: assets/icons/heart_selected.svg
+  SvgGenImage get heartSelected =>
+      const SvgGenImage('assets/icons/heart_selected.svg');
+
+  /// File path: assets/icons/heart_unselected.svg
+  SvgGenImage get heartUnselected =>
+      const SvgGenImage('assets/icons/heart_unselected.svg');
+
+  /// File path: assets/icons/home_selected.svg
+  SvgGenImage get homeSelected =>
+      const SvgGenImage('assets/icons/home_selected.svg');
+
+  /// File path: assets/icons/home_unselected.svg
+  SvgGenImage get homeUnselected =>
+      const SvgGenImage('assets/icons/home_unselected.svg');
+
   /// File path: assets/icons/lock_icon.svg
   SvgGenImage get lockIcon => const SvgGenImage('assets/icons/lock_icon.svg');
 
   /// File path: assets/icons/sms.svg
   SvgGenImage get sms => const SvgGenImage('assets/icons/sms.svg');
 
-  /// File path: assets/icons/user.svg
-  SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
+  /// File path: assets/icons/sport_icon_unselected.svg
+  SvgGenImage get sportIconUnselected =>
+      const SvgGenImage('assets/icons/sport_icon_unselected.svg');
+
+  /// File path: assets/icons/user_regester.svg
+  SvgGenImage get userRegester =>
+      const SvgGenImage('assets/icons/user_regester.svg');
+
+  /// File path: assets/icons/user_selected.svg
+  SvgGenImage get userSelected =>
+      const SvgGenImage('assets/icons/user_selected.svg');
+
+  /// File path: assets/icons/user_unselected.svg
+  SvgGenImage get userUnselected =>
+      const SvgGenImage('assets/icons/user_unselected.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [lockIcon, sms, user];
+  List<SvgGenImage> get values => [
+    birthdayIconUnselected,
+    bookIconUnselected,
+    heartSelected,
+    heartUnselected,
+    homeSelected,
+    homeUnselected,
+    lockIcon,
+    sms,
+    sportIconUnselected,
+    userRegester,
+    userSelected,
+    userUnselected,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -37,6 +87,14 @@ class $AssetsImagesGen {
   AssetGenImage get appLogo =>
       const AssetGenImage('assets/images/app_logo.png');
 
+  /// File path: assets/images/birthday_design.png
+  AssetGenImage get birthdayDesign =>
+      const AssetGenImage('assets/images/birthday_design.png');
+
+  /// File path: assets/images/bookclub_design.png
+  AssetGenImage get bookclubDesign =>
+      const AssetGenImage('assets/images/bookclub_design.png');
+
   /// File path: assets/images/google_icon.png
   AssetGenImage get googleIcon =>
       const AssetGenImage('assets/images/google_icon.png');
@@ -45,8 +103,19 @@ class $AssetsImagesGen {
   AssetGenImage get routeLogo =>
       const AssetGenImage('assets/images/route_logo.png');
 
+  /// File path: assets/images/sport_design.png
+  AssetGenImage get sportDesign =>
+      const AssetGenImage('assets/images/sport_design.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, googleIcon, routeLogo];
+  List<AssetGenImage> get values => [
+    appLogo,
+    birthdayDesign,
+    bookclubDesign,
+    googleIcon,
+    routeLogo,
+    sportDesign,
+  ];
 }
 
 class Assets {

@@ -22,6 +22,14 @@ class AppTheme {
         color: AppColors.maintextLightMode,
       ),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedLabelStyle: AppTextStyle.style12w400Black.copyWith(
+        color: AppColors.mainLightMode,
+      ),
+      unselectedLabelStyle: AppTextStyle.style12w400Black.copyWith(
+        color: AppColors.disable,
+      ),
+    ),
     actionIconTheme: ActionIconThemeData(
       backButtonIconBuilder: (BuildContext context) => Container(
         width: 32,
@@ -44,7 +52,7 @@ class AppTheme {
   );
   static final ThemeData darktTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      primary:AppColors.mainDarkMode ,
+      primary: AppColors.mainDarkMode,
       seedColor: AppColors.mainDarkMode,
       brightness: Brightness.dark,
       inversePrimary: Colors.white,
@@ -62,6 +70,14 @@ class AppTheme {
         color: AppColors.mainTextDarkMode,
       ),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedLabelStyle: AppTextStyle.style12w400Black.copyWith(
+        color: AppColors.mainDarkMode,
+      ),
+      unselectedLabelStyle: AppTextStyle.style12w400Black.copyWith(
+        color: AppColors.disable,
+      ),
+    ),
     actionIconTheme: ActionIconThemeData(
       backButtonIconBuilder: (BuildContext context) => Container(
         width: 32,
@@ -76,8 +92,6 @@ class AppTheme {
     ),
     textTheme: _generateTextTheme(AppColors.mainTextDarkMode),
     buttonTheme: ButtonThemeData(
-
-      
       colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainDarkMode),
     ),
   );

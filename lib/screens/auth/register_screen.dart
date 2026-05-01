@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 24),
                   CustomTextField(
                     hintText: "enter your name",
-                    prefixIconPath: Assets.icons.user.path,
+                    prefixIconPath: Assets.icons.userRegester.path,
                     controller: name,
                     validator: (value) {
                       if (ValidationUtils.validateEmptyText(value) == false) {
