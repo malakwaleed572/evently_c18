@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Assets.images.appLogo.image(height: 27, width: 150),
+                    child: Assets.images.appLogo.image( width: 150),
                   ),
                   SizedBox(height: 50),
                   Text(
@@ -117,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           password.text,
                         );
                         setState(() {
-                          isLoading = true;
+                          isLoading = false;
                         });
                         if (errorMessage != null) {
                           Fluttertoast.showToast(
@@ -175,7 +175,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 24),
                   CustomOutlinedBottom(
                     onPressed: () {},
                     child: Row(

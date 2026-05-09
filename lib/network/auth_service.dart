@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/common/models/custom_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vexana/vexana.dart';
 
 class AuthService {
   static Future<String?> login(String emailAddress, String password) async {
@@ -32,10 +31,9 @@ class AuthService {
             email: user.email,
             password: password,
           );
-      String? errorMessage = await createUser(user);
-      if (errorMessage != null) {
-        throw errorMessage;
-      }
+      user.uid =credintials.user!.uid;
+       await createUser(user);
+      
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak password') {
         return "the password provided is too weak ";

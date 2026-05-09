@@ -29,17 +29,17 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Form(
-              key: _formkey,
+      body: Form(
+        key: _formkey,
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: ListView(
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Assets.images.appLogo.image(height: 27, width: 150),
+                    child: Assets.images.appLogo.image( width: 150),
                   ),
                   SizedBox(height: 50),
                   Text(
@@ -67,12 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: "enter your password",
                     prefixIconPath: Assets.icons.lockIcon.path,
                     controller: password,
+                      isPassword: true,
+                      maxLines: 1,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "empty password";
+                        return "Empty password!!";
                       }
                     },
-                    isPassword: true,
+                  
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -92,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: 50),
-
+                      
                   CustomFilledBottom(
                     isLoading: isLoading,
                     onPressed: () async {
@@ -100,12 +102,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           isLoading = true;
                         });
-
+                      
                         String? errorMessage = await AuthService.login(
                           email.text,
                           password.text,
                         );
-
+                      
                         //print("done");
                         setState(() {
                           isLoading = false;
@@ -155,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 32),
-
+                      
                   Center(
                     child: Text(
                       "OR",
@@ -164,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 24),
                   CustomOutlinedBottom(
                     onPressed: () {},
                     child: Row(

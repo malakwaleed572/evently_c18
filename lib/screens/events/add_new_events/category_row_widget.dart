@@ -1,53 +1,26 @@
-import 'dart:math';
+
 
 import 'package:evently/common/models/category_model.dart';
 import 'package:evently/screens/events/provider/events_provider.dart';
-import 'package:evently/screens/home/tabs/home_tab/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class CategoryRow extends StatelessWidget {
-  const CategoryRow({
-    super.key,
-    required this.onChange,
-   
-  });
+class CustomCategoryRow extends StatelessWidget {
+  const CustomCategoryRow({super.key});
 
-  final void Function(int) onChange;
- 
-@override
+  // late int selsctedCategory =  1;
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    int selectedCategory=Provider.of<HomeProvider>(context).selectedCategory;
+    CategoryModel selectedCtegory = Provider.of<EventsProvider>(
+      context,
+    ).selectedCtegory;
     return SizedBox(
       height: 40,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: ChoiceChip(
-              label: Row(
-                spacing: 4,
-                children: [Text("All"), Icon(Icons.category,color: selectedCategory==0?Colors.white:null,)],
-              ),
-              labelStyle: theme.textTheme.titleMedium!.copyWith(
-                color: selectedCategory == 0 ? Colors.white : null,
-              ),
-              selected: selectedCategory == 0,
-              onSelected: (value) {
-                onChange(0);
-              },
-              showCheckmark: false,
-              backgroundColor: theme.cardColor,
-              selectedColor: theme.colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(16),
-              ),
-            ),
-          ),
-
           ...CategoryModel.generateCategories().map(
             (e) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -57,7 +30,7 @@ class CategoryRow extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       e.iconPath,
-                      colorFilter: selectedCategory == e.id
+                      colorFilter: selectedCtegory.id == e.id
                           ? ColorFilter.mode(Colors.white, BlendMode.srcIn)
                           : null,
                     ),
@@ -65,11 +38,14 @@ class CategoryRow extends StatelessWidget {
                   ],
                 ),
                 labelStyle: theme.textTheme.titleMedium!.copyWith(
-                  color: selectedCategory == e.id ? Colors.white : null,
+                  color: selectedCtegory.id == e.id ? Colors.white : null,
                 ),
-                selected: selectedCategory == e.id,
+                selected: selectedCtegory.id == e.id,
                 onSelected: (value) {
-                  onChange(e.id);
+                  Provider.of<EventsProvider>(
+                    context,
+                    listen: false,
+                  ).editSelectedCategory(e);
                 },
                 showCheckmark: false,
                 backgroundColor: theme.cardColor,

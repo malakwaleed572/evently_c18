@@ -1,3 +1,6 @@
+import 'package:evently/common/models/event_model.dart';
+import 'package:evently/network/event_service.dart';
+import 'package:evently/screens/home/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 
 class FavTab extends StatelessWidget {
@@ -5,6 +8,21 @@ class FavTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.amber,);
+    return FutureBuilder(
+      future: EventService.getWishlistEvents(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        }
+        List<EventModel> events = snapshot.data ?? [];
+        return ListView.builder(
+          itemBuilder: (context, index) => EventCard(eventModel: events[index]),
+          itemCount: events.length,
+        );
+      },
+    );
   }
 }

@@ -1,8 +1,14 @@
 import 'package:evently/common/gen/assets.gen.dart';
+import 'package:evently/common/theme/text_style.dart';
+import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/provider/theme_provider.dart';
+import 'package:evently/screens/events/add_new_events/add_new_event.dart';
 import 'package:evently/screens/home/tabs/fav_tab/fav_tab.dart';
+import 'package:evently/screens/home/tabs/home_tab/home_provider.dart';
 import 'package:evently/screens/home/tabs/home_tab/home_tab.dart';
 import 'package:evently/screens/home/tabs/profile_tab/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,58 +19,125 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget>tabs=[
-    HomeTab(),
-    FavTab(),
-    ProfileTab(),
-  ];
-  int index=0;
+  List<Widget> tabs = [HomeTab(), FavTab(), ProfileTab()];
+  int index = 0;
   @override
   Widget build(BuildContext context) {
-    ThemeData theme=Theme.of(context);
-    return Scaffold(
-      floatingActionButton:FloatingActionButton(onPressed: (){}
-     , child: Icon(Icons.add,color: Colors.white,size: 24,)
-      ,backgroundColor:theme.colorScheme.primary ,
-      shape: CircleBorder(),
-      ) ,
-      body: SafeArea(child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: tabs[index],
-      )),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap:(value)=>setState(() {
-          index=value;
-        }) ,
-        selectedLabelStyle: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          fontFamily: "Poppins",
+    ThemeData theme = Theme.of(context);
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => HomeProvider(),
+      child: Scaffold(
+        floatingActionButton: Consumer<HomeProvider>(
+          builder: (BuildContext context, HomeProvider value, Widget? child) =>
+              FloatingActionButton(
+                onPressed: () async {
+                  final res = await Navigator.of(
+                    context,
+                  ).pushReplacementNamed(AddNewEventScreen.routeName);
+                  if (res == true) {
+                    value.getEvents();
+                  }
+                },
+
+                backgroundColor: theme.colorScheme.primary,
+                shape: CircleBorder(),
+                child: Icon(Icons.add, color: Colors.white, size: 24),
+              ),
         ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          fontFamily: "Poppins",
-          
-        ), 
-        items: [
-          BottomNavigationBarItem(
-            icon: Assets.icons.homeUnselected.svg(),
-            activeIcon: Assets.icons.homeSelected.svg(),
-            label: "Home",
+        appBar: index == 0
+            ? AppBar(
+                centerTitle: false,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      Provider.of<ThemeProvider>(
+                        context,
+                        listen: false,
+                      ).updateTheme();
+                    },
+                    icon: Icon(Icons.wb_sunny_outlined),
+                  ),
+                  SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: FilledButton(
+                      onPressed: () {
+                        Provider.of<ThemeProvider>(
+                          context,
+                          listen: false,
+                        ).updateLanguage();
+                      },
+
+                      style: FilledButton.styleFrom(
+                        visualDensity: VisualDensity.compact,
+                        padding: EdgeInsets.all(0),
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.localeName, //  == 'ar'
+                        //     ? "EN"
+                        //     : "AR", //   AppLocalizations.of(context)!.local,
+                        style: AppTextStyle.style14w600Black.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                title: Column(
+                  spacing: 5,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.hello, //    "Welcome Back ✨",
+                      style: theme.textTheme.labelSmall!.copyWith(
+                        color: theme.hintColor,
+                      ),
+                    ),
+                    Text(
+                      "Name", //TODO:with provider
+                      style: theme.textTheme.displayMedium!.copyWith(
+                        // color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : null,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: tabs[index],
           ),
-          BottomNavigationBarItem(
-            icon: Assets.icons.heartUnselected.svg(),
-            activeIcon: Assets.icons.heartSelected.svg(),
-            label: "Favorite",
-          ),
-          BottomNavigationBarItem(
-            icon: Assets.icons.userUnselected.svg(),
-            activeIcon: Assets.icons.userSelected.svg(),
-            label: "Profile",
-          ),
-        ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: index,
+          onTap: (value) => setState(() {
+            index = value;
+          }),
+          items: [
+            BottomNavigationBarItem(
+              icon: Assets.icons.homeUnselected.svg(),
+              activeIcon: Assets.icons.homeSelected.svg(),
+              label: AppLocalizations.of(context)!.home,
+            ),
+            BottomNavigationBarItem(
+              icon: Assets.icons.heartUnselected.svg(),
+              activeIcon: Assets.icons.heartSelected.svg(),
+              label: AppLocalizations.of(context)!.fav,
+            ),
+            BottomNavigationBarItem(
+              icon: Assets.icons.userUnselected.svg(),
+              activeIcon: Assets.icons.userSelected.svg(),
+              label: AppLocalizations.of(context)!.profile,
+            ),
+          ],
+        ),
       ),
     );
   }
